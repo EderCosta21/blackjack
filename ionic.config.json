@@ -1,0 +1,7 @@
+{
+  "name": "blackjack_eder",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
