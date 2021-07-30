@@ -25,3 +25,50 @@
 #container a {
   text-decoration: none;
 }
+
+// ion-toolbar{
+
+//   --background: linear-gradient(to right, #3CB371, #2E8B57, #3CB371);
+
+// }
+
+ion-title {
+  text-align: center;
+  padding-top: 10px;
+  color: var(--ion-color-light);
+}
+
+///Imagem de Fundo
+.imgCenter {
+  background-size: cover;
+  background: url("../../assets/Imagens/fundo.jpg") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/// botão dobrar
+
+.dobrar {
+  position: absolute;
+  top: 140vw;
+  --border-radius:100%;
+  font-weight: bold;
+}
+
+.parar {
+  position: absolute;
+  left: 75vw;
+  top: 130vw;
+  --border-radius:50%;
+  font-weight: bold;
+}
+.maisUma {
+  font-weight: bold;
+  position: absolute;
+  left: 70vw;
+  top: 140vw;
+  --border-radius:50%
+}

@@ -1,3 +1,4 @@
+import { gerarCartas } from './../services/gerarCartas';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor( public gerarCarts : gerarCartas) {}
+
+ 
+  ionViewWillEnter(){
+
+  console.log( "sorteio pessoa",this.gerarCarts.sorteioCartasPessoa())
+  console.log( "sorteio maquina",this.gerarCarts.sorteioCartasMaquina())
+  }
+
 
 }
