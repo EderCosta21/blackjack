@@ -53,7 +53,7 @@ ion-title {
 
 .dobrar {
   position: absolute;
-  top: 140vw;
+  // top: 100vw;
   --border-radius:100%;
   font-weight: bold;
 }
@@ -61,7 +61,7 @@ ion-title {
 .parar {
   position: absolute;
   left: 75vw;
-  top: 130vw;
+  // top: 85vw;
   --border-radius:50%;
   font-weight: bold;
 }
@@ -69,6 +69,65 @@ ion-title {
   font-weight: bold;
   position: absolute;
   left: 70vw;
-  top: 140vw;
+  top: 10vw;
   --border-radius:50%
+}
+////////////////////
+
+
+.carta {
+  background-color: white;
+  height: 100px;
+  width: 70px;
+  border-radius: 15px;
+  padding: 15px;
+  box-sizing: content-box;
+  position: relative;
+  float: left;
+  margin: 3px;
+  box-shadow: -1px 1px 4px rgba(0,0,0,0.1);
+}
+
+
+.naip-area {
+  height:50%;
+  width: 100%;
+}
+
+.naip-area:nth-child(2) {
+  transform:rotate(180deg);
+}
+
+.naip-number, .naip-sign {
+  display:block;
+  width: 10px;
+  text-align: center;
+}
+
+.naip-number {
+  font-size: 20px; 
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+}
+
+.naip-sign {
+  font-size: 20px;
+}
+
+.carta-miolo {
+  position: absolute;
+  top: 0;
+  width: 50px;
+}
+
+/*--------- Miolo 1 -----------*/
+.miolo-1 {
+  text-align: center;
+  line-height: 120px;
+  font-size: 50px;
+  left: 25px;
+}
+
+.hearts{
+  color: red;
 }
