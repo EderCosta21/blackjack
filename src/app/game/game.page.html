@@ -1,0 +1,127 @@
+<ion-content [fullscreen]="true">
+  <div class="imgCenter">
+    <ion-title>
+      Blackjack
+    </ion-title>
+
+    <ion-fab vertical="top" horizontal="end"  slot="fixed">
+      <ion-fab-button color="dark" size="small" mode="ios" translucent="true">
+        <ion-icon name="settings"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+        <ion-fab-button routerLink="/home">voltar</ion-fab-button>
+        <ion-fab-button>Sair</ion-fab-button>
+     
+      </ion-fab-list>
+    </ion-fab>
+    <ion-grid>
+      <!-- <ion-row>
+        <ion-col size="12">
+          <ion-button fill="clear">
+            <ion-icon name="settings-outline" color="success" height="50px"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row class="info">
+        <ion-col size="12">
+          <ion-button fill="clear" routerLink="/info">
+            <ion-icon name="information-circle-outline" color="success"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <div>
+
+        </div>
+
+        <ion-col size="12">
+          <ion-title>Maquina</ion-title>
+          <ion-badge color="success" mode="ios">{{saldoMaquina}}</ion-badge>
+          <div *ngFor="let maq of maquina; index as i">
+
+            <!-- carta -->
+            <div class="cartaPostion">
+            <div class="carta" *ngIf="maq[2] != true">
+              <div class="naip-area naip-top">
+                <span class="naip-number" [class.hearts]="['&hearts', '&diams'].includes(maq[1])">{{maq[0]}}</span>
+
+              </div>
+
+              <div class="naip-area naip-bottom">
+                <span class="naip-number" [class.hearts]="['&hearts', '&diams'].includes(maq[1])">{{maq[0]}}</span>
+
+              </div>
+
+              <div class="carta-miolo miolo-1">
+                <span *ngIf="maq[1] === '&clubs'">&clubs;</span>
+                <span [ngClass]="{'hearts':maq[1]}" *ngIf="maq[1] === '&hearts'">&hearts;</span>
+                <span *ngIf="maq[1] === '&spades'">&spades;</span>
+                <span [ngClass]="{'hearts':maq[1]}" *ngIf="maq[1] === '&diams'">&diams;</span>
+              </div>
+            </div>   
+            </div>   
+
+            <div  *ngIf="maq[2] == true">
+              <img src="../../assets/Imagens/cartaV.png" class="cartaVerso" />
+
+            </div>  
+
+            
+
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-title>Você</ion-title>
+          <div class="positionBalao">
+          <div class="balao2"> {{saldoPessoa}}</div>
+          </div>
+          <!-- <ion-badge color="success" mode="ios">{{saldoPessoa}}</ion-badge> -->
+          <div *ngFor="let pes of pessoa">
+            <!-- carta -->
+            <div class="cartaPostion">
+            <div class="carta">
+              <div class="naip-area naip-top">
+                <span class="naip-number" [class.hearts]="['&hearts', '&diams'].includes(pes[1])">{{pes[0]}}</span>
+              </div>
+
+              <div class="naip-area naip-bottom">
+                <span class="naip-number" [class.hearts]="['&hearts', '&diams'].includes(pes[1])">{{pes[0]}}</span>
+              </div>
+
+              <div class="carta-miolo miolo-1">
+                <span *ngIf="pes[1] === '&clubs'">&clubs;</span>
+                <span [ngClass]="{'hearts':pes[1]}" *ngIf="pes[1] === '&hearts'">&hearts;</span>
+                <span *ngIf="pes[1] === '&spades'">&spades;</span>
+                <span [ngClass]="{'hearts':pes[1]}" *ngIf="pes[1] === '&diams'">&diams;</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-button class="dobrar" color="light">
+            Dobrar
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button class="parar" color="light" (click)="goToMaquina()">
+            Parar
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button class="maisUma" color="light" (click)="maisUma()">
+            Mais Uma
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+</ion-content>

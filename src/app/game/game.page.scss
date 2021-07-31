@@ -1,0 +1,185 @@
+#container {
+    text-align: center;
+  
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    font-size: 16px;
+    line-height: 22px;
+  
+    color: #8c8c8c;
+  
+    margin: 0;
+  }
+  
+  #container a {
+    text-decoration: none;
+  }
+  
+  ion-title {
+    text-align: center;
+    padding-top: 10px;
+    color: var(--ion-color-light);
+  }
+  
+  ///Imagem de Fundo
+  .imgCenter {
+    background-size: cover;
+    background: url("../../assets/Imagens/fundo.jpg") no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+  }
+  
+  /// botão dobrar
+  
+  .dobrar {
+    position: absolute;
+    top: 250px;
+    --border-radius:100%;
+    font-weight: bold;
+  }
+  //botão parar
+  .parar {
+    position: absolute;
+    left: 75vw;
+    top: 200px;
+    --border-radius:50%;
+    font-weight: bold;
+  }
+  //botao mais uma carta
+  .maisUma {
+    font-weight: bold;
+    position: absolute;
+    left: 70vw;
+    top: 250px;
+    bottom:  15px;
+    --border-radius:50%
+  }
+  // botão info
+  .info{
+    padding-top:  5px;
+  }
+  ////////////////////
+  
+  
+  .carta {
+    background-color: white;
+    height: 100px;
+    width: 70px;
+    border-radius: 15px;
+    padding: 15px;
+    box-sizing: content-box;
+    position: relative;
+    float: left;
+    margin: 40px -10px 3px -30px;
+    // box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 1em gold;
+  }
+
+  .cartaPostion{
+      margin-left: 40px;
+  }
+  
+  
+  .naip-area {
+    height:50%;
+    width: 100%;
+  }
+  
+  .naip-area:nth-child(2) {
+    transform:rotate(180deg);
+  }
+  
+  .naip-number, .naip-sign {
+    display:block;
+    width: 10px;
+    text-align: center;
+  }
+  
+  .naip-number {
+    font-size: 20px; 
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+  }
+  
+  .naip-sign {
+    font-size: 20px;
+  }
+  
+  .carta-miolo {
+    position: absolute;
+    top: 0;
+    width: 50px;
+  }
+  
+  /*--------- Miolo 1 -----------*/
+  .miolo-1 {
+    text-align: center;
+    line-height: 120px;
+    font-size: 50px;
+    left: 25px;
+  }
+  
+  .hearts{
+    color: red;
+  }
+  .cartaVerso{
+    background-color: white;
+    height: 120px;
+    width: 92px;
+    border-radius: 15px;
+    padding: 5px;
+    box-sizing: content-box;
+    position: relative;
+    float: left;
+    margin: 40px -10px 3px -30px;
+    // box-shadow: -1px 1px 4px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 1em gold;
+    
+  }
+
+  // criação do balão
+  .balao2{
+	background: white;
+	border-radius: 15px;
+	width: 50px;
+	height: 40px;
+  padding-left: 13px;
+  padding-top: 13px;
+  font-weight: bold;
+	position: relative;
+}
+.balao2:after{
+
+	content: "";
+	width: 0;
+	height: 0;
+
+	position: absolute;
+
+	border-left: 20px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 20px solid white;
+	
+	bottom: -10px;
+	left: 20%;
+}
+.positionBalao{
+    z-index: 100;
+    position: absolute;
+    top: 25px;
+    left: 5px;
+}
