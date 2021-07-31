@@ -14,6 +14,11 @@
      
       </ion-fab-list>
     </ion-fab>
+    <div>
+      <ion-button fill="clear" routerLink="/info" height="40px" width="40px">
+        <ion-icon name="information-circle-outline" color="success" height="40px" width="40px"></ion-icon>
+      </ion-button>
+    </div>
     <ion-grid>
       <!-- <ion-row>
         <ion-col size="12">
@@ -25,9 +30,7 @@
 
       <ion-row class="info">
         <ion-col size="12">
-          <ion-button fill="clear" routerLink="/info">
-            <ion-icon name="information-circle-outline" color="success"></ion-icon>
-          </ion-button>
+      
         </ion-col>
       </ion-row>
 
@@ -38,7 +41,7 @@
 
         <ion-col size="12">
           <ion-title>Maquina</ion-title>
-          <ion-badge color="success" mode="ios">{{saldoMaquina}}</ion-badge>
+          <!-- <ion-badge color="success" mode="ios">{{saldoMaquina}}</ion-badge> -->
           <div *ngFor="let maq of maquina; index as i">
 
             <!-- carta -->
