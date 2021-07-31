@@ -26,12 +26,6 @@
   text-decoration: none;
 }
 
-// ion-toolbar{
-
-//   --background: linear-gradient(to right, #3CB371, #2E8B57, #3CB371);
-
-// }
-
 ion-title {
   text-align: center;
   padding-top: 10px;
@@ -53,24 +47,30 @@ ion-title {
 
 .dobrar {
   position: absolute;
-  // top: 100vw;
+  top: 250px;
   --border-radius:100%;
   font-weight: bold;
 }
-
+//botão parar
 .parar {
   position: absolute;
   left: 75vw;
-  // top: 85vw;
+  top: 200px;
   --border-radius:50%;
   font-weight: bold;
 }
+//botao mais uma carta
 .maisUma {
   font-weight: bold;
   position: absolute;
   left: 70vw;
-  top: 10vw;
+  top: 250px;
+  bottom:  15px;
   --border-radius:50%
+}
+// botão info
+.info{
+  padding-top: 25px;
 }
 ////////////////////
 
@@ -130,4 +130,17 @@ ion-title {
 
 .hearts{
   color: red;
+}
+.cartaVerso{
+  background-color: white;
+  height: 120px;
+  width: 92px;
+  border-radius: 15px;
+  padding: 5px;
+  box-sizing: content-box;
+  position: relative;
+  float: left;
+  margin: 3px;
+  box-shadow: -1px 1px 4px rgba(0,0,0,0.1);
+  
 }

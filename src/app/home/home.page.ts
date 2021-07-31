@@ -30,6 +30,9 @@ export class HomePage {
     await this.countValorPessoa();
     await this.countValorMaquina();
 
+    let tag = true
+    this.maquina[1].push(true)
+
     console.log("pessoa", this.pessoa)
     console.log("maquina", this.maquina)
   }
@@ -103,20 +106,26 @@ export class HomePage {
 
   async goToMaquina() {
     let idInterval;
-    if (this.saldoPessoa < 17 || this.saldoPessoa != 21) {
+    let message;
+  
+        console.log("Cartas maquina", this.maquina)
+    if (this.saldoPessoa < 18 || this.saldoPessoa != 21) {
 
       idInterval = setInterval(() => {
         this.maquina.push(this.gerarCarts.sorteioCartas());
         this.countValorMaquina();
-        console.log( "Cartas maquina", this.maquina)
-        if(this.saldoMaquina >=21)
-        {
+        console.log("Cartas maquina", this.maquina)
+        if (this.saldoMaquina >= 21 || this.saldoMaquina > 18) {
           console.log("count", this.saldoMaquina)
+          message = 'Você ganhou'
+          this.presentAlert(message)
           clearInterval(idInterval);
         }
-        
-      }, 2000);
 
+      }, 2000);
+    }else{
+      message = 'Você ganhou'
+          this.presentAlert(message)
     }
 
   }
