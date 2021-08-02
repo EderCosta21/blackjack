@@ -42,6 +42,10 @@
     min-width: 100%;
     min-height: 100%;
   }
+  ion-grid{
+    margin: 0px !important;
+    padding: 0px !important;
+  }
   
   /// botão dobrar
   
@@ -192,3 +196,30 @@ ion-fab{
 .fichasPosition{
   padding-top: 150px;
 }
+
+// Dinheiro \\
+
+.saldo{
+  background-color: black;
+  height: 70px;
+}
+
+.saldoPessoa{
+  
+  padding: 25px;
+  text-align: center;
+}
+.apostaPessoa{
+  background-color: white;
+  border-radius: 25%;
+  z-index: 100;
+  position: absolute;
+  top: 20px;
+  left: 75vw;
+  color: red;
+
+}
+p{
+  margin: 5px;
+}
+

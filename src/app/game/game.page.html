@@ -63,6 +63,10 @@
           <div class="positionBalao">
             <div class="balao2"> {{saldoPessoa}}</div>
           </div>
+          <div class="apostaPessoa" *ngIf="apostaPessoa !==0">
+            <p> -R$ {{apostaPessoa}}</p>
+           
+           </div>
           <!-- <ion-badge color="success" mode="ios">{{saldoPessoa}}</ion-badge> -->
           <div *ngFor="let pes of pessoa">
             <!-- carta -->
@@ -106,19 +110,30 @@
           </ion-button>
         </ion-col>
       </ion-row>
-
-      <ion-row class="fichasPosition">
-        <ion-col size="3"> 
-          <img src="../../assets/Imagens/ficha1.png" (click)="aposta('1')" />
+      <!-- [disabled]="desabilita" -->
+      <ion-row class="fichasPosition" >
+        <ion-col size="3" >
+        
+          <img src="../../assets/Imagens/ficha1.png" (click)="aposta('1')"  />
         </ion-col>
-        <ion-col size="3"> 
+        <ion-col size="3">
           <img src="../../assets/Imagens/ficha5.png" (click)="aposta('5')" />
         </ion-col>
-        <ion-col size="3"> 
+        <ion-col size="3">
           <img src="../../assets/Imagens/ficha25.png" (click)="aposta('25')" />
         </ion-col>
-        <ion-col size="3"> 
+        <ion-col size="3">
           <img src="../../assets/Imagens/ficha100.png" (click)="aposta('100')" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=12>
+          <div class="saldo">
+
+            <ion-title class="saldoPessoa"> R${{dinheiroPessoa}}</ion-title>
+          </div>
+
         </ion-col>
       </ion-row>
 
