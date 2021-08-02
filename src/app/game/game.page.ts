@@ -23,21 +23,21 @@ export class GamePage {
 
   ionViewWillEnter() {
 
-    this.startGame()
+    this.startGame();
   }
 
   async startGame() {
-    // this.pessoa = [this.gerarCarts.sorteioCartas(), this.gerarCarts.sorteioCartas()]
-    // this.maquina = [this.gerarCarts.sorteioCartas(), this.gerarCarts.sorteioCartas()]
+    this.pessoa = [this.gerarCarts.sorteioCartas(), this.gerarCarts.sorteioCartas()]
+    this.maquina = [this.gerarCarts.sorteioCartas(), this.gerarCarts.sorteioCartas()]
 
-    this.pessoa = ['A', 'K']
-    this.maquina = ['6','Q']
+    // this.pessoa = ['A', 'K']
+    // this.maquina = ['8', 'Q']
 
     await this.countValorPessoa();
     await this.countValorMaquina();
 
     let tag = true
-    // this.maquina[1].push(true)
+    this.maquina[1].push(true)
 
     console.log("pessoa", this.pessoa)
     console.log("maquina", this.maquina)
@@ -45,8 +45,25 @@ export class GamePage {
 
   countValorPessoa() {
     let count = 0;
-    if (this.pessoa[0] === 'A' && ['Q', 'J', 'K'].includes(this.pessoa[1]) || ['Q', 'J', 'K'].includes(this.pessoa[0]) && this.pessoa[1] === 'A') {
-      count = 21
+    if (this.pessoa[0][0] === 'A' && ['Q', 'J', 'K'].includes(this.pessoa[1][0]) || ['Q', 'J', 'K'].includes(this.pessoa[0][0]) && this.pessoa[1][0] === 'A') {
+      if (this.pessoa[2]) {
+        this.pessoa.map(res => {
+
+          if (res[0] == 'A') {
+            count += 1
+          }
+          if (res[0] == 'J' || res[0] == 'Q' || res[0] == 'K') {
+            count = count + 10
+          }
+          if (!['A', 'Q', 'J', 'K'].includes(res[0])) {
+            count = count + parseInt(res[0])
+
+          }
+        })
+      } else {
+        count = 21
+      }
+
     } else {
       this.pessoa.map(res => {
 
@@ -73,23 +90,26 @@ export class GamePage {
 
   countValorMaquina() {
     let count = 0;
-    this.maquina.map(res => {
+    if (this.maquina[0][0] === 'A' && ['Q', 'J', 'K'].includes(this.maquina[1][0]) || ['Q', 'J', 'K'].includes(this.maquina[0][0]) && this.maquina[1][0] === 'A') {
+      count = 21
+    } else {
+      this.maquina.map(res => {
 
-      if (res[0] == 'A') {
-        count += 1
-      }
-      if (res[0] == 'J' || res[0] == 'Q' || res[0] == 'K') {
-        count = count + 10
-      }
+        if (res[0] == 'A') {
+          count += 1
+        }
+        if (res[0] == 'J' || res[0] == 'Q' || res[0] == 'K') {
+          count = count + 10
+        }
 
-      if (!['A', 'Q', 'J', 'K'].includes(res[0])) {
-        count = count + parseInt(res[0])
+        if (!['A', 'Q', 'J', 'K'].includes(res[0])) {
+          count = count + parseInt(res[0])
 
-      }
-      this.saldoMaquina = count;
-    })
+        }
 
-
+      })
+    }
+    this.saldoMaquina = count;
     this.verificaValor();
     console.log("Saldo maquina", this.saldoMaquina)
 
@@ -99,11 +119,10 @@ export class GamePage {
     let message;
     this.pessoa.push(this.gerarCarts.sorteioCartas())
     console.log("pessoa", this.pessoa)
-    
+
     await this.countValorPessoa();
     await this.verificaValor();
-    if(this.saldoPessoa >21)
-    {
+    if (this.saldoPessoa > 21) {
       message = 'Você perdeu'
       this.presentAlert(message)
     }
@@ -118,7 +137,9 @@ export class GamePage {
     await this.verificaValor();
 
 
-    console.log("Cartas maquina", this.maquina)
+    console.log("Cartas fimGameMaquina", this.fimGameMaquina)
+    console.log("Cartas fimGameEmpate", this.fimGameEmpate)
+    console.log("Cartas fimGamePessoa", this.fimGamePessoa)
 
     // 2 blackjack
     if (this.fimGameEmpate) {
@@ -126,54 +147,124 @@ export class GamePage {
       this.presentAlert(message)
     } else {
 
-      if (this.fimGamePessoa) {
-        message = 'Você ganhou'
+      if (this.fimGameMaquina && !this.fimGamePessoa) {
+        message = 'Você perdeu :('
         this.presentAlert(message)
-      } else if (this.fimGameMaquina) {
-        message = 'Você perdeu'
-        this.presentAlert(message)
-      } else {
+      }
+      else {
 
-        if (this.saldoPessoa < 18) {
+        if (this.saldoMaquina >= 19) {
+          if (this.saldoMaquina > this.saldoPessoa) {
+            message = 'Você perdeu :('
+            this.presentAlert(message)
+          } else {
+            message = 'Você ganhou :)'
+            this.presentAlert(message)
+          }
+        } else {
+          if (this.fimGamePessoa || !this.fimGamePessoa) {
+       
+            idInterval = setInterval(() => {
+              this.maquina.push(this.gerarCarts.sorteioCartas());
+              this.countValorMaquina();
+              console.log("Cartas maquina", this.maquina)
 
-          idInterval = setInterval(() => {
-            this.maquina.push(this.gerarCarts.sorteioCartas());
-            this.countValorMaquina();
-            console.log("Cartas maquina", this.maquina)
-
-            if (this.saldoMaquina == 21 && this.saldoPessoa == 21) {
-              message = 'Empatado'
-              this.presentAlert(message)
-              clearInterval(idInterval);
-            }
-            else
-              if (this.saldoMaquina == 21 || this.saldoPessoa < 18) {
-                console.log("count", this.saldoMaquina)
-                message = 'Você perdeu'
+              if (this.saldoMaquina == 21 && this.saldoPessoa == 21) {
+                message = 'Empatado :/'
                 this.presentAlert(message)
                 clearInterval(idInterval);
-              } else
-                if (this.saldoMaquina >= 21 || this.saldoMaquina > 18) {
-                  console.log("count", this.saldoMaquina)
-                  message = 'Você ganhou'
-                  this.presentAlert(message)
-                  clearInterval(idInterval);
-                }
+              }
+              else
+                if (this.saldoMaquina == 21 || this.saldoPessoa < this.saldoMaquina && this.saldoMaquina < 21) {
 
-          }, 2000);
-        } else if (this.saldoMaquina == this.saldoPessoa) {
-          message = 'Empatado'
-          this.presentAlert(message)
-        } else {
-          message = 'Você ganhou'
-          this.presentAlert(message)
+                  if (this.saldoMaquina == 21 && this.fimGamePessoa) {
+                    console.log("count", this.saldoMaquina)
+                    message = 'Você ganhou :)'
+                    this.presentAlert(message)
+                    clearInterval(idInterval);
+                  } else {
+                    console.log("count", this.saldoMaquina)
+                    message = 'Você perdeu :('
+                    this.presentAlert(message)
+                    clearInterval(idInterval);
+                  }
+
+                } else
+                  if (this.saldoMaquina >= 21 || this.saldoMaquina > 18) {
+                    console.log("count", this.saldoMaquina)
+                    message = 'Você ganhou :)'
+                    this.presentAlert(message)
+                    clearInterval(idInterval);
+                  }
+
+                  else if (this.saldoMaquina == this.saldoPessoa) {
+                    message = 'Empatado :/'
+                    this.presentAlert(message)
+                    clearInterval(idInterval);
+                  }
+
+            }, 2000);
+          }
         }
+
+
 
       }
 
 
-
     }
+
+    //   if (this.saldoMaquina > this.saldoPessoa) {
+    //     message = 'Você perdeu 2'
+    //     this.presentAlert(message)
+    //   } else {
+
+    //     if (this.saldoMaquina <= 18) {
+
+    //       idInterval = setInterval(() => {
+    //         this.maquina.push(this.gerarCarts.sorteioCartas());
+    //         this.countValorMaquina();
+    //         console.log("Cartas maquina", this.maquina)
+
+    //         if (this.saldoMaquina == 21 && this.saldoPessoa == 21) {
+    //           message = 'Empatado 2'
+    //           this.presentAlert(message)
+    //           clearInterval(idInterval);
+    //         }
+    //         else
+    //           if (this.saldoMaquina == 21 || this.saldoPessoa < this.saldoMaquina && this.saldoMaquina < 21) {
+    //             console.log("count", this.saldoMaquina)
+    //             message = 'Você perdeu 1'
+    //             this.presentAlert(message)
+    //             clearInterval(idInterval);
+    //           } else
+    //             if (this.saldoMaquina >= 21 || this.saldoMaquina > 18) {
+    //               console.log("count", this.saldoMaquina)
+    //               message = 'Você ganhou 2'
+    //               this.presentAlert(message)
+    //               clearInterval(idInterval);
+    //             }
+
+    //             else if (this.saldoMaquina == this.saldoPessoa) {
+    //               message = 'Empatado 3'
+    //               this.presentAlert(message)
+    //               clearInterval(idInterval);
+    //             }
+
+    //       }, 2000);
+    //     } else if (this.saldoMaquina == this.saldoPessoa) {
+    //       message = 'Empatado 1'
+    //       this.presentAlert(message)
+    //     } else {
+    //       message = 'Você ganhou 1'
+    //       this.presentAlert(message)
+    //     }
+
+    //   }
+
+
+
+    // }
   }
 
 
@@ -192,36 +283,40 @@ export class GamePage {
 
 
     // Verificação se alguem possui um blackjack \\
-    if (this.pessoa[0] === 'A' && ['Q', 'J', 'K'].includes(this.pessoa[1]) || ['Q', 'J', 'K'].includes(this.pessoa[0]) && this.pessoa[1] === 'A') {
-      this.fimGamePessoa = true;
+
+    this.fimGameEmpate = false;
+    this.fimGameMaquina = false;
+    this.fimGamePessoa = false;
+
+    if (this.pessoa[0][0] == 'A' && ['Q', 'J', 'K'].includes(this.pessoa[1][0]) || ['Q', 'J', 'K'].includes(this.pessoa[0][0]) && this.pessoa[1][0] === 'A') {
+      if(!this.pessoa[2])
+      {
+        this.fimGamePessoa = true;
+      }
+    
       console.log("Pessoa possui um blackjack", this.fimGamePessoa)
     }
-    if (this.maquina[0] === 'A' && ['Q', 'J', 'K'].includes(this.maquina[1]) || ['Q', 'J', 'K'].includes(this.maquina[0]) && this.maquina[1] === 'A') {
+    if (this.maquina[0][0] === 'A' && ['Q', 'J', 'K'].includes(this.maquina[1][0]) || ['Q', 'J', 'K'].includes(this.maquina[0][0]) && this.maquina[1][0] === 'A') {
       this.fimGameMaquina = true;
       console.log("maquina possui um blackjack", this.fimGameMaquina)
     }
 
     // três condições para da blackjack
-    if (this.fimGamePessoa && this.fimGameMaquina) {
+    if (this.fimGamePessoa == true && this.fimGameMaquina == true) {
       this.fimGameEmpate = true
-      console.log("Empate")
+  
     }
     else if (!this.fimGamePessoa && this.fimGameMaquina && this.saldoMaquina == 21) {
-
-      console.log("Maquina ganha")
     }
     else if (this.fimGamePessoa && !this.fimGameMaquina && this.saldoPessoa == 21) {
-      console.log("Pessoa ganha")
     } else {
 
       if (this.saldoPessoa == 21) {
-        console.log("voce ganhou");
         this.fimGamePessoa = true;
 
       }
-      else if (this.saldoPessoa > 21) {
-        console.log("Maquina ganha")
-        this.fimGameMaquina = true;
+      if (this.saldoPessoa > 21) {
+            this.fimGameMaquina = true;
         message = 'Você perdeu'
         await this.presentAlert(message)
       }
@@ -232,7 +327,6 @@ export class GamePage {
       //   // this.presentAlert(message)
 
       // }
-
 
     }
 
