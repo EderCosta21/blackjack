@@ -18,6 +18,9 @@ export class GamePage {
   public fimGameMaquina: boolean = false; // blackjack maquina
   public fimGameEmpate: boolean = false; // blackjack empate
 
+  public dinheiroMesa: number = 10000; // dinheiro inicial
+  public dinheiroPessoa: number = 10000; // dinheiro inicial
+
   constructor(public gerarCarts: gerarCartas, public alertController: AlertController) { }
 
 
@@ -163,7 +166,7 @@ export class GamePage {
           }
         } else {
           if (this.fimGamePessoa || !this.fimGamePessoa) {
-       
+
             idInterval = setInterval(() => {
               this.maquina.push(this.gerarCarts.sorteioCartas());
               this.countValorMaquina();
@@ -289,11 +292,10 @@ export class GamePage {
     this.fimGamePessoa = false;
 
     if (this.pessoa[0][0] == 'A' && ['Q', 'J', 'K'].includes(this.pessoa[1][0]) || ['Q', 'J', 'K'].includes(this.pessoa[0][0]) && this.pessoa[1][0] === 'A') {
-      if(!this.pessoa[2])
-      {
+      if (!this.pessoa[2]) {
         this.fimGamePessoa = true;
       }
-    
+
       console.log("Pessoa possui um blackjack", this.fimGamePessoa)
     }
     if (this.maquina[0][0] === 'A' && ['Q', 'J', 'K'].includes(this.maquina[1][0]) || ['Q', 'J', 'K'].includes(this.maquina[0][0]) && this.maquina[1][0] === 'A') {
@@ -304,7 +306,7 @@ export class GamePage {
     // três condições para da blackjack
     if (this.fimGamePessoa == true && this.fimGameMaquina == true) {
       this.fimGameEmpate = true
-  
+
     }
     else if (!this.fimGamePessoa && this.fimGameMaquina && this.saldoMaquina == 21) {
     }
@@ -316,7 +318,7 @@ export class GamePage {
 
       }
       if (this.saldoPessoa > 21) {
-            this.fimGameMaquina = true;
+        this.fimGameMaquina = true;
         message = 'Você perdeu'
         await this.presentAlert(message)
       }
@@ -352,5 +354,14 @@ export class GamePage {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  aposta(valor) {
+    console.log("aposta", valor)
+
+   this.dinheiroMesa = this.dinheiroMesa - parseInt(valor) ;
+    console.log("dinheiro", this.dinheiroMesa)
+  }
+
 
 }
+
+

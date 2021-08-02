@@ -47,7 +47,7 @@
   
   .dobrar {
     position: absolute;
-    top: 160px;
+    // top: 160px;
     --border-radius:100%;
     font-weight: bold;
   }
@@ -55,7 +55,7 @@
   .parar {
     position: absolute;
     left: 75vw;
-    top: 150px;
+    // top: 150px;
     --border-radius:50%;
     font-weight: bold;
   }
@@ -64,7 +64,7 @@
     font-weight: bold;
     position: absolute;
     left: 70vw;
-    top: 180px;
+    top: 40px;  
     bottom:  15px;
     --border-radius:50%
   }
@@ -77,9 +77,9 @@
   
   .carta {
     background-color: white;
-    height: 100px;
-    width: 70px;
-    border-radius: 15px;
+    height: 80px;
+    width: 50px;
+    border-radius: 10px;
     padding: 15px;
     box-sizing: content-box;
     position: relative;
@@ -130,7 +130,7 @@
     text-align: center;
     line-height: 120px;
     font-size: 50px;
-    left: 25px;
+    // left: 25px;
   }
   
   .hearts{
@@ -138,9 +138,9 @@
   }
   .cartaVerso{
     background-color: white;
-    height: 120px;
-    width: 92px;
-    border-radius: 15px;
+    height: 100px;
+    width: 70px;
+    border-radius: 10px;
     padding: 5px;
     box-sizing: content-box;
     position: relative;
@@ -185,4 +185,10 @@
 }
 ion-fab{
   padding-top: 15px;
+}
+
+/// Fichas \\\\\
+
+.fichasPosition{
+  padding-top: 150px;
 }
