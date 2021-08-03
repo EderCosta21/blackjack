@@ -38,7 +38,7 @@
     background: url("../../assets/Imagens/fundo.jpg") no-repeat center center;
     background-size: cover;
     width: 100%;
-    height: 100%;
+    height: 120vh;
     min-width: 100%;
     min-height: 100%;
   }
@@ -52,7 +52,7 @@
   .dobrar {
     position: absolute;
     // top: 160px;
-    --border-radius:100%;
+    // --border-radius:100%;
     font-weight: bold;
   }
   //botão parar
@@ -60,7 +60,7 @@
     position: absolute;
     left: 75vw;
     // top: 150px;
-    --border-radius:50%;
+    // --border-radius:50%;
     font-weight: bold;
   }
   //botao mais uma carta
@@ -70,7 +70,7 @@
     left: 70vw;
     top: 40px;  
     bottom:  15px;
-    --border-radius:50%
+    // --border-radius:50%
   }
   // botão info
   .info{
@@ -88,7 +88,7 @@
     box-sizing: content-box;
     position: relative;
     float: left;
-    margin: 40px -10px 3px -30px;
+    margin: 20px -10px 3px -30px;
     // box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
     box-shadow: inset 0 0 0.5em gold;
   }
@@ -99,8 +99,8 @@
   
   
   .naip-area {
-    height:50%;
-    width: 100%;
+    height:45px;
+    width: 110%;
   }
   
   .naip-area:nth-child(2) {
@@ -109,14 +109,15 @@
   
   .naip-number, .naip-sign {
     display:block;
-    width: 10px;
+    width: 15px;
     text-align: center;
   }
   
   .naip-number {
-    font-size: 20px; 
-    font-family: 'Roboto Slab', serif;
+    font-size: 15px;
+    font-family: "Roboto Slab", serif;
     font-weight: 400;
+    width: 17px;
   }
   
   .naip-sign {
@@ -133,7 +134,7 @@
   .miolo-1 {
     text-align: center;
     line-height: 120px;
-    font-size: 50px;
+    font-size: 25px;
     // left: 25px;
   }
   
@@ -149,7 +150,7 @@
     box-sizing: content-box;
     position: relative;
     float: left;
-    margin: 40px -10px 3px -30px;
+    margin: 20px -10px 3px -30px;
     // box-shadow: -1px 1px 4px rgba(0,0,0,0.1);
     box-shadow: inset 0 0 0.5em gold;
     
@@ -159,32 +160,29 @@
   .balao2{
 	background: white;
 	border-radius: 15px;
-	width: 50px;
-	height: 40px;
+	width: 42px;
+	height: 32px;
   padding-left: 13px;
-  padding-top: 13px;
+  padding-top: 10px;
   font-weight: bold;
 	position: relative;
 }
 .balao2:after{
 
-	content: "";
-	width: 0;
-	height: 0;
-
-	position: absolute;
-
-	border-left: 20px solid transparent;
-	border-right: 12px solid transparent;
-	border-top: 20px solid white;
-	
-	bottom: -10px;
-	left: 20%;
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 20px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 10px solid white;
+  bottom: -6px;
+  left: 11%;
 }
 .positionBalao{
     z-index: 100;
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 5px;
 }
 ion-fab{
@@ -211,13 +209,19 @@ ion-fab{
 }
 .apostaPessoa{
   background-color: white;
-  border-radius: 25%;
+  border-radius: 5px;
   z-index: 100;
   position: absolute;
   top: 20px;
   left: 75vw;
   color: red;
 
+}
+.botaoFicha{
+
+  height: 100px;
+  --padding-end:0px;
+  --padding-start:0px;
 }
 p{
   margin: 5px;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { gerarCartas } from '../services/gerarCartas';
 
 @Component({
@@ -17,16 +17,17 @@ export class GamePage {
   public fimGamePessoa: boolean = false; // blackjack pessoa
   public fimGameMaquina: boolean = false; // blackjack maquina
   public fimGameEmpate: boolean = false; // blackjack empate
-  public desabilita:boolean = false;
+  public desabilita: boolean = false;
+  public desabilitaAposta: boolean = false;
 
-  public dinheiroMesa: number = 10000; // dinheiro inicial
-  public dinheiroPessoa: number = 10000; // dinheiro inicial
+  public dinheiroMesa: number = 100000000000; // dinheiro inicial
+  public dinheiroPessoa: number = 1000; // dinheiro inicial
   public apostaMesa: number = 0;
   public apostaPessoa: number = 0;
 
-  public valorDaAposta:number = 0;
 
-  constructor(public gerarCarts: gerarCartas, public alertController: AlertController) { }
+
+  constructor(public gerarCarts: gerarCartas, public alertController: AlertController, public toastController: ToastController) { }
 
 
   ionViewWillEnter() {
@@ -39,7 +40,7 @@ export class GamePage {
     this.maquina = [this.gerarCarts.sorteioCartas(), this.gerarCarts.sorteioCartas()]
 
     // this.pessoa = ['A', 'K']
-    // this.maquina = ['8', 'Q']
+    // this.maquina = ['A', 'J']
 
     await this.countValorPessoa();
     await this.countValorMaquina();
@@ -124,12 +125,26 @@ export class GamePage {
   }
 
   async maisUma() {
-    let message;
-    this.pessoa.push(this.gerarCarts.sorteioCartas())
-    console.log("pessoa", this.pessoa)
 
-    await this.countValorPessoa();
-    await this.verificaValor();
+    if (this.apostaPessoa != 0) {
+      this.desabilitaAposta = true;
+      this.pessoa.push(this.gerarCarts.sorteioCartas())
+      console.log("pessoa", this.pessoa)
+
+      await this.countValorPessoa();
+      await this.verificaValor();
+    } else {
+
+      const toast = await this.toastController.create({
+        message: 'Para começar faça uma aposta :).',
+        position: "middle",
+        cssClass: 'set',
+        duration: 2000
+      });
+      toast.present();
+
+    }
+
 
 
 
@@ -137,120 +152,138 @@ export class GamePage {
   }
 
   async goToMaquina() {
-    this.desabilita = true;
-    this.maquina[1][2]=false;
-    let idInterval;
-    let message;
-    await this.verificaValor();
 
-
-    console.log("Cartas fimGameMaquina", this.fimGameMaquina)
-    console.log("Cartas fimGameEmpate", this.fimGameEmpate)
-    console.log("Cartas fimGamePessoa", this.fimGamePessoa)
-
-    // 2 blackjack
-    if (this.fimGameEmpate) {
-      this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
-      this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa 
-      this.apostaMesa = 0;
-      this.apostaPessoa = 0;
-      message = 'Empatado'
-      this.presentAlert(message)
-    } else {
-
-      if (this.fimGameMaquina && !this.fimGamePessoa) {
-        this.dinheiroMesa = this.dinheiroMesa +(this.apostaPessoa * 2) ;
+    if (this.apostaPessoa != 0) { 
+      this.desabilita = true;
+      this.desabilitaAposta = true;
+      this.maquina[1][2] = false;
+      let idInterval;
+      let message;
+      await this.verificaValor();
+  
+  
+      console.log("Cartas fimGameMaquina", this.fimGameMaquina)
+      console.log("Cartas fimGameEmpate", this.fimGameEmpate)
+      console.log("Cartas fimGamePessoa", this.fimGamePessoa)
+  
+      // 2 blackjack
+      if (this.fimGameEmpate) {
+        this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
+        this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa
         this.apostaMesa = 0;
         this.apostaPessoa = 0;
-        message = 'Você perdeu :('
+        message = 'Empatado'
         this.presentAlert(message)
-      }
-      else {
-
-        if (this.saldoMaquina >= 19) {
-          if (this.saldoMaquina > this.saldoPessoa) {
-            this.dinheiroMesa = this.dinheiroMesa + (this.apostaPessoa * 2);
-            this.apostaMesa = 0;
-            this.apostaPessoa = 0;
-            message = 'Você perdeu :('
-            this.presentAlert(message)
-          } else {
-            this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
-            this.apostaMesa = 0;
-            this.apostaPessoa = 0;
-            message = 'Você ganhou :)'
-            this.presentAlert(message)
-          }
-        } else {
-          if (this.fimGamePessoa || !this.fimGamePessoa) {
-
-            idInterval = setInterval(() => {
-              this.maquina.push(this.gerarCarts.sorteioCartas());
-              this.countValorMaquina();
-              console.log("Cartas maquina", this.maquina)
-
-              if (this.saldoMaquina == 21 && this.saldoPessoa == 21) {
-                this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
-                this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa
-                this.apostaMesa = 0;
-                this.apostaPessoa = 0;
-                message = 'Empatado :/'
-                this.presentAlert(message)
-                clearInterval(idInterval);
-              }
-              else
-                if (this.saldoMaquina == 21 || this.saldoPessoa < this.saldoMaquina && this.saldoMaquina < 21) {
-
-                  if (this.saldoMaquina == 21 && this.fimGamePessoa) {
-                    this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
-                    this.apostaMesa = 0;
-                    this.apostaPessoa = 0;
-                    console.log("count", this.saldoMaquina)
-                    message = 'Você ganhou :)'
-                    this.presentAlert(message)
-                    clearInterval(idInterval);
-                  } else {
-                    console.log("count", this.saldoMaquina)
-                    this.dinheiroMesa = this.dinheiroMesa + (this.apostaPessoa * 2);
-                    this.apostaMesa = 0;
-                    this.apostaPessoa = 0;
-                    message = 'Você perdeu :('
-                    this.presentAlert(message)
-                    clearInterval(idInterval);
-                  }
-
-                } else
-                  if (this.saldoMaquina >= 21 || this.saldoMaquina > 18) {
-                    console.log("count", this.saldoMaquina)
-                    this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
-                    this.apostaMesa = 0;
-                    this.apostaPessoa = 0;
-                    message = 'Você ganhou :)'
-                    this.presentAlert(message)
-                    clearInterval(idInterval);
-                  }
-
-                  else if (this.saldoMaquina == this.saldoPessoa) {
-                    this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
-                    this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa
-                    this.apostaMesa = 0;
-                    this.apostaPessoa = 0;
-                    message = 'Empatado :/'
-                    this.presentAlert(message)
-                    clearInterval(idInterval);
-                  }
-
-            }, 2000);
-          }
+      } else {
+  
+        if (this.fimGameMaquina && !this.fimGamePessoa) {
+          this.dinheiroMesa = this.dinheiroMesa + (this.apostaPessoa * 2);
+          this.apostaMesa = 0;
+          this.apostaPessoa = 0;
+          message = 'Você perdeu :('
+          this.presentAlert(message)
         }
-
-
-
+        else {
+  
+          if (this.saldoMaquina >= 19) {
+            if (this.saldoMaquina > this.saldoPessoa) {
+              this.dinheiroMesa = this.dinheiroMesa + (this.apostaPessoa * 2);
+              this.apostaMesa = 0;
+              this.apostaPessoa = 0;
+              message = 'Você perdeu :('
+              this.presentAlert(message)
+            } else {
+              this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
+              this.apostaMesa = 0;
+              this.apostaPessoa = 0;
+              message = 'Você ganhou :)'
+              this.presentAlert(message)
+            }
+          } else {
+            if (this.fimGamePessoa || !this.fimGamePessoa) {
+  
+              idInterval = setInterval(() => {
+                this.maquina.push(this.gerarCarts.sorteioCartas());
+                this.countValorMaquina();
+                console.log("Cartas maquina", this.maquina)
+  
+                if (this.saldoMaquina == 21 && this.saldoPessoa == 21) {
+                  this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
+                  this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa
+                  this.apostaMesa = 0;
+                  this.apostaPessoa = 0;
+                  message = 'Empatado :/'
+                  this.presentAlert(message)
+                  clearInterval(idInterval);
+                }
+                else
+                  if (this.saldoMaquina == 21 || this.saldoPessoa < this.saldoMaquina && this.saldoMaquina < 21) {
+  
+                    if (this.saldoMaquina == 21 && this.fimGamePessoa) {
+                      this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
+                      this.apostaMesa = 0;
+                      this.apostaPessoa = 0;
+                      console.log("count", this.saldoMaquina)
+                      message = 'Você ganhou :)'
+                      this.presentAlert(message)
+                      clearInterval(idInterval);
+                    } else {
+                      console.log("count", this.saldoMaquina)
+                      this.dinheiroMesa = this.dinheiroMesa + (this.apostaPessoa * 2);
+                      this.apostaMesa = 0;
+                      this.apostaPessoa = 0;
+                      message = 'Você perdeu :('
+                      this.presentAlert(message)
+                      clearInterval(idInterval);
+                    }
+  
+                  } else
+                    if (this.saldoMaquina >= 21 || this.saldoMaquina > 18) {
+                      console.log("count", this.saldoMaquina)
+                      this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
+                      this.apostaMesa = 0;
+                      this.apostaPessoa = 0;
+                      message = 'Você ganhou :)'
+                      this.presentAlert(message)
+                      clearInterval(idInterval);
+                    }
+  
+                    else if (this.saldoMaquina == this.saldoPessoa) {
+                      this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
+                      this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa
+                      this.apostaMesa = 0;
+                      this.apostaPessoa = 0;
+                      message = 'Empatado :/'
+                      this.presentAlert(message)
+                      clearInterval(idInterval);
+                    }
+  
+              }, 2000);
+            }
+          }
+  
+  
+  
+        }
+  
+  
       }
+  
 
+    }
+    else {
+
+      const toast = await this.toastController.create({
+        message: 'Para começar faça uma aposta :).',
+        position: "middle",
+        cssClass: 'set',
+        duration: 2000
+      });
+      toast.present();
 
     }
 
+   
   }
 
 
@@ -291,10 +324,9 @@ export class GamePage {
       this.fimGameEmpate = true
 
     }
-    else if (!this.fimGamePessoa && this.fimGameMaquina && this.saldoMaquina == 21) {
-    }
-    else if (this.fimGamePessoa && !this.fimGameMaquina && this.saldoPessoa == 21) {
-    } else {
+    else {
+
+      console.log("toaqui")
 
       if (this.saldoPessoa == 21) {
         this.fimGamePessoa = true;
@@ -330,36 +362,93 @@ export class GamePage {
 
     await alert.present();
     this.desabilita = false;
+    this.desabilitaAposta = false;
     this.gerarCarts.baralhoNovo();
 
-    setTimeout(async res =>{
-     await this.startGame();
-    },1000)
-   
+    setTimeout(async res => {
+      await this.startGame();
+    }, 1000)
+
 
   }
 
-  aposta(valor) {
+  async aposta(valor) {
 
-    this.valorDaAposta = parseInt(valor)
+
     console.log("aposta", valor)
-    console.log("saldo pessoa", this.dinheiroPessoa)
-    console.log("saldo mesa", this.dinheiroMesa)
+    // console.log("saldo pessoa", this.dinheiroPessoa)
+    // console.log("saldo mesa", this.dinheiroMesa)
+    if (this.dinheiroMesa == 0 || this.dinheiroPessoa == 0) {
+      if (!this.desabilitaAposta && this.dinheiroPessoa == 0 && this.apostaPessoa == 0) {
+        let alert = this.alertController.create({
+          header: 'Seu dinheiro Acabou!',
+          subHeader: 'Deseja adicionar mais dinheiro',
+          mode: 'ios',
 
-    this.dinheiroMesa = this.dinheiroMesa - parseInt(valor);
-    this.dinheiroPessoa = this.dinheiroPessoa - parseInt(valor);
-    this.apostaPessoa = this.apostaPessoa + parseInt(valor);
-    this.apostaMesa = this.apostaMesa + parseInt(valor);
+          buttons: [
+            {
+              text: 'Não, obrigado!',
+              role: 'cancel',
+              handler: data => {
+
+
+              }
+            },
+            {
+              text: 'Sim',
+              handler: data => {
+
+                this.dinheiroPessoa = 100000
+
+              }
+            }
+          ]
+        });
+
+        (await alert).present();
+
+      } else {
+        this.desabilitaAposta = true;
+      }
+
+
+
+
+    } else {
+      this.dinheiroMesa = this.dinheiroMesa - parseInt(valor);
+      this.dinheiroPessoa = this.dinheiroPessoa - parseInt(valor);
+      this.apostaPessoa = this.apostaPessoa + parseInt(valor);
+      this.apostaMesa = this.apostaMesa + parseInt(valor);
+
+      if (this.dinheiroPessoa < 0) {
+        this.dinheiroPessoa = 0
+
+      }
+      if (this.apostaPessoa > 10000) {
+        this.apostaMesa = 10000;
+        this.apostaPessoa = 10000
+      }
+
+    }
+
+
+
+
+
+
     console.log("apostaPessoa", this.apostaPessoa)
     console.log("dinheiro mesa", this.dinheiroMesa)
     console.log("dinheiro pessoa", this.dinheiroPessoa)
   }
 
-  dobrarAposta(){
-    this.dinheiroMesa = this.dinheiroMesa - this.valorDaAposta;
-    this.dinheiroPessoa = this.dinheiroPessoa -  this.valorDaAposta;
-    this.apostaPessoa = this.apostaPessoa +  this.valorDaAposta;
-    this.apostaMesa = this.apostaMesa + this.valorDaAposta;
+  async dobrarAposta() {
+    this.dinheiroMesa = this.dinheiroMesa - this.apostaMesa;
+    this.dinheiroPessoa = this.dinheiroPessoa - this.apostaPessoa;
+    this.apostaPessoa = this.apostaPessoa * 2;
+    this.apostaMesa = this.apostaMesa * 2;
+
+    await this.maisUma();
+    this.desabilita = true;
 
   }
 
