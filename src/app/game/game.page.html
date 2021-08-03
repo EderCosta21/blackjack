@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <div *ngIf="maq[2] == true">
+            <div *ngIf="maq[2] == true ">
               <img src="../../assets/Imagens/cartaV.png" class="cartaVerso" />
 
             </div>
@@ -95,9 +95,9 @@
 
       <ion-row>
         <ion-col size="12">
-          <ion-button class="dobrar" color="light">
+          <ion-button class="dobrar" color="light" (click)="dobrarAposta()" [disabled]="desabilita">
             Dobrar
-          </ion-button>
+          </ion-button> 
         </ion-col>
         <ion-col size="12">
           <ion-button class="parar" color="light" (click)="goToMaquina()">
@@ -105,7 +105,7 @@
           </ion-button>
         </ion-col>
         <ion-col size="12">
-          <ion-button class="maisUma" color="light" (click)="maisUma()">
+          <ion-button class="maisUma" color="light" (click)="maisUma()" [disabled]="desabilita">
             Mais Uma
           </ion-button>
         </ion-col>
