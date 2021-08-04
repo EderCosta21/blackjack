@@ -20,7 +20,7 @@ export class GamePage {
   public desabilita: boolean = false;
   public desabilitaAposta: boolean = false;
 
-  public dinheiroMesa: number = 100000000000; // dinheiro inicial
+  public dinheiroMesa: number = 100000000000000000; // dinheiro inicial
   public dinheiroPessoa: number = 1000; // dinheiro inicial
   public apostaMesa: number = 0;
   public apostaPessoa: number = 0;
@@ -30,9 +30,24 @@ export class GamePage {
   constructor(public gerarCarts: gerarCartas, public alertController: AlertController, public toastController: ToastController) { }
 
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    await this.info()
 
     this.startGame();
+
+    
+  }
+
+  async info(){
+
+    const toast = await this.toastController.create({
+      message: 'Para começar jogar, faça uma aposta :).',
+      position: "middle",
+      cssClass: 'setInicial',
+      duration: 3500
+    });
+    toast.present();
+
   }
 
   async startGame() {
@@ -424,10 +439,7 @@ export class GamePage {
         this.dinheiroPessoa = 0
 
       }
-      if (this.apostaPessoa > 10000) {
-        this.apostaMesa = 10000;
-        this.apostaPessoa = 10000
-      }
+
 
     }
 

@@ -26,8 +26,16 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .set{
-    color: red;
+    color: #000;
     text-align: center;
+   --background: white;
+
+}
+
+.setInicial{
+    color: #000;
+    text-align: center;
+    top:-10%;
    --background: white;
 
 }

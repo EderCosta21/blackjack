@@ -35,16 +35,20 @@
   ///Imagem de Fundo
   .imgCenter {
     background-size: cover;
-    background: url("../../assets/Imagens/fundo.jpg") no-repeat center center;
+    background: url("../../assets/Imagens/fundo2.png") no-repeat center center;
     background-size: cover;
     width: 100%;
-    height: 120vh;
+    height: 100vh;
     min-width: 100%;
     min-height: 100%;
   }
   ion-grid{
     margin: 0px !important;
     padding: 0px !important;
+  }
+
+  .semApostas{
+    height: 340px;
   }
   
   /// botão dobrar
@@ -54,6 +58,9 @@
     // top: 160px;
     // --border-radius:100%;
     font-weight: bold;
+    --background:#f2f679;
+    --color:#000;
+    box-shadow: 0 0 1em #000;
   }
   //botão parar
   .parar {
@@ -62,6 +69,9 @@
     // top: 150px;
     // --border-radius:50%;
     font-weight: bold;
+    --background:#f2f679;
+    --color:#000;
+    box-shadow: 0 0 1em #000;
   }
   //botao mais uma carta
   .maisUma {
@@ -70,6 +80,10 @@
     left: 70vw;
     top: 40px;  
     bottom:  15px;
+    --background:#f2f679;
+    --color:#000;
+   
+    box-shadow: 0 0 1em #000;
     // --border-radius:50%
   }
   // botão info
@@ -83,7 +97,7 @@
     background-color: white;
     height: 80px;
     width: 50px;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 15px;
     box-sizing: content-box;
     position: relative;
@@ -115,7 +129,7 @@
   
   .naip-number {
     font-size: 15px;
-    font-family: "Roboto Slab", serif;
+    font-family: "  ", serif;
     font-weight: 400;
     width: 17px;
   }
@@ -145,7 +159,7 @@
     background-color: white;
     height: 100px;
     width: 70px;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 5px;
     box-sizing: content-box;
     position: relative;
@@ -208,13 +222,14 @@ ion-fab{
   text-align: center;
 }
 .apostaPessoa{
-  background-color: white;
   border-radius: 5px;
   z-index: 100;
   position: absolute;
-  top: 20px;
-  left: 75vw;
-  color: red;
+  top: 510px;
+  left: 43vw;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
 
 }
 .botaoFicha{

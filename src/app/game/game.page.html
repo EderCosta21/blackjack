@@ -1,16 +1,22 @@
 <ion-content [fullscreen]="true">
   <div class="imgCenter">
-    <ion-title>
+    <!-- <ion-title>
       Blackjack
-    </ion-title>
+    </ion-title> -->
 
     <ion-fab vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button color="dark" size="small" mode="ios" translucent="true">
         <ion-icon name="settings"></ion-icon>
       </ion-fab-button>
       <ion-fab-list side="start">
-        <ion-fab-button routerLink="/home">Voltar</ion-fab-button>
-        <ion-fab-button>Sair</ion-fab-button>
+        <ion-fab-button routerLink="/home">
+
+          <img src="../../assets/Imagens/fichavoltar.png" />
+        </ion-fab-button>
+        <ion-fab-button>
+
+          <img src="../../assets/Imagens/fichasair.png" />
+        </ion-fab-button>
 
       </ion-fab-list>
     </ion-fab>
@@ -20,10 +26,12 @@
       </ion-button>
     </div>
     <ion-grid>
-      <ion-row>
+      <ion-row  *ngIf="apostaPessoa == 0" class="semApostas">
 
+      </ion-row>
+      <ion-row *ngIf="apostaPessoa != 0">
         <ion-col size="12">
-          <ion-title>Maquina</ion-title>
+          <ion-title>Mesa</ion-title>
           <div class="positionBalao" *ngIf="desabilita">
             <div class="balao2"> {{saldoMaquina}}</div>
           </div>
@@ -64,10 +72,7 @@
           <div class="positionBalao">
             <div class="balao2"> {{saldoPessoa}}</div>
           </div>
-          <div class="apostaPessoa" *ngIf="apostaPessoa !==0">
-            <p> R$ {{apostaPessoa}}</p>
-           
-           </div>
+  
           <!-- <ion-badge color="success" mode="ios">{{saldoPessoa}}</ion-badge> -->
           <div *ngFor="let pes of pessoa">
             <!-- carta -->
@@ -96,41 +101,47 @@
 
       <ion-row>
         <ion-col size="12">
-          <ion-button class="dobrar" color="light" (click)="dobrarAposta()" [disabled]="desabilita || desabilitaAposta">
+          <ion-button class="dobrar"  (click)="dobrarAposta()" [disabled]="desabilita || desabilitaAposta">
             Dobrar
-          </ion-button> 
+          </ion-button>
         </ion-col>
         <ion-col size="12">
-          <ion-button class="parar" color="light" (click)="goToMaquina()">
+          <ion-button class="parar"  (click)="goToMaquina()">
             Parar
           </ion-button>
         </ion-col>
         <ion-col size="12">
-          <ion-button class="maisUma" color="light" (click)="maisUma()" [disabled]="desabilita">
+          <ion-button class="maisUma"  (click)="maisUma()" [disabled]="desabilita">
             Mais Uma
           </ion-button>
         </ion-col>
       </ion-row>
-      <!-- [disabled]="desabilita" -->
-      <ion-row class="fichasPosition" >
-        <ion-col size="3" >
-        <ion-button class="botaoFicha" fill="clear" [disabled]="desabilitaAposta">
-          <img src="../../assets/Imagens/ficha1.png" (click)="aposta('1')"  />
-        </ion-button>
-        </ion-col>
+
+      <div class="apostaPessoa" *ngIf="apostaPessoa !==0">
+        <p>Aposta </p> 
+        <p> R$ {{apostaPessoa}}</p>
+
+      </div>
+    
+      <ion-row class="fichasPosition">
         <ion-col size="3">
           <ion-button class="botaoFicha" fill="clear" [disabled]="desabilitaAposta">
-            <img src="../../assets/Imagens/ficha5.png" (click)="aposta('5')"  />
+            <img src="../../assets/Imagens/ficha1.png" (click)="aposta('1')" />
           </ion-button>
         </ion-col>
         <ion-col size="3">
           <ion-button class="botaoFicha" fill="clear" [disabled]="desabilitaAposta">
-            <img src="../../assets/Imagens/ficha25.png" (click)="aposta('25')"  />
+            <img src="../../assets/Imagens/ficha5.png" (click)="aposta('5')" />
           </ion-button>
         </ion-col>
         <ion-col size="3">
           <ion-button class="botaoFicha" fill="clear" [disabled]="desabilitaAposta">
-            <img src="../../assets/Imagens/ficha100.png" (click)="aposta('100')"  />
+            <img src="../../assets/Imagens/ficha25.png" (click)="aposta('25')" />
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button class="botaoFicha" fill="clear" [disabled]="desabilitaAposta">
+            <img src="../../assets/Imagens/ficha100.png" (click)="aposta('100')" />
           </ion-button>
         </ion-col>
       </ion-row>
