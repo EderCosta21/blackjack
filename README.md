@@ -10,6 +10,8 @@
   <a href="#rocket-tecnologias-utilizadas">Tecnologias</a>&nbsp;|&nbsp;
 </h3>
 
+<img src="/img1.png" width="375">
+
 
 ## :information_source: Sobre
 
