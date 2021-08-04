@@ -1,7 +1,5 @@
 <h2 align="center">BlackJack</h2>
 
-_
-
 
 
 
