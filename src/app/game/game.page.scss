@@ -55,12 +55,24 @@
   
   .dobrar {
     position: absolute;
-    // top: 160px;
+    top: 25px;
     // --border-radius:100%;
     font-weight: bold;
     --background:#f2f679;
     --color:#000;
     box-shadow: 0 0 1em #000;
+  }
+
+  .começar{
+
+    position: absolute;
+    top:62px;  
+    // --border-radius:100%;
+    font-weight: bold;
+    --background:#f2f679;
+    --color:#000;
+    box-shadow: 0 0 1em #000;
+
   }
   //botão parar
   .parar {
@@ -202,6 +214,10 @@
 ion-fab{
   padding-top: 15px;
 }
+ion-fab-list{
+ margin-top: 15px;
+}
+
 
 /// Fichas \\\\\
 
