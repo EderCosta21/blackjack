@@ -201,10 +201,17 @@ export class GamePage {
 
               message = 'Você perdeu :('
               this.presentAlert(message)
-            } else {
+            }else if( this.saldoMaquina == this.saldoPessoa){
+              this.dinheiroMesa = this.dinheiroMesa + this.apostaMesa
+              this.dinheiroPessoa = this.dinheiroPessoa + this.apostaPessoa
+      
+              message = 'Empatado'
+              this.presentAlert(message)
+            }
+              else {
               this.dinheiroPessoa = this.dinheiroPessoa + (this.apostaPessoa * 2)
 
-              message = 'Você ganhou :)'
+              message = 'Você ganhou :) '
               this.presentAlert(message)
             }
           } else {
@@ -444,14 +451,29 @@ export class GamePage {
   }
 
   async dobrarAposta() {
-    this.dinheiroMesa = this.dinheiroMesa - this.apostaMesa;
-    this.dinheiroPessoa = this.dinheiroPessoa - this.apostaPessoa;
-    this.apostaPessoa = this.apostaPessoa * 2;
-    this.apostaMesa = this.apostaMesa * 2;
+    console.log("dinheiro, pessoa", this.dinheiroPessoa)
+    if (this.dinheiroPessoa <= 0 || this.apostaPessoa >= this.dinheiroPessoa) {
+      const toast = await this.toastController.create({
+        message: 'Não possui dinheiro suficiente para dobrar aposta :)', 
+        position: "middle",
+        cssClass: 'set',
+        duration: 2000
+      });
+      toast.present();
+    }
+    else {
+      this.dinheiroMesa = this.dinheiroMesa - this.apostaMesa;
+      this.dinheiroPessoa = this.dinheiroPessoa - this.apostaPessoa;
+      this.apostaPessoa = this.apostaPessoa * 2;
+      this.apostaMesa = this.apostaMesa * 2;
 
-    await this.maisUma();
-    this.desabilita = true;
-    this.goToMaquina();
+      await this.maisUma();
+       this.comecarGame = true;
+        this.desabilitaAposta = true;
+        this.desabilita = false;
+      this.goToMaquina();
+    }
+
 
   }
 
