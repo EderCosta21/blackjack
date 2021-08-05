@@ -10,12 +10,19 @@
   <a href="#rocket-tecnologias-utilizadas">Tecnologias</a>&nbsp;|&nbsp;
 </h3>
 
-<img src="./img1.png" width="375">
+
 
 
 ## :information_source: Sobre
 
 Blackjack  é um jogo praticado com cartas em casinos e que pode ser jogado com 1 a 8 baralhos de 52 cartas, em que o objetivo é ter mais pontos do que o adversário, mas sem ultrapassar os 21 (caso em que se perde).
+
+<div  align="center">
+<img src="./public/img2.png" width="375" align="center" >
+<img src="./public/img1.png" width="375" align="center" >
+</div>
+
+
 ## :interrobang: Motivo
 
 Aprimorar conhecimentos
@@ -26,19 +33,50 @@ Aprimorar conhecimentos
 O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 Ionic:
-   Ionic CLI                     : 6.16.3 
-   Ionic Framework               : @ionic/angular 5.6.12
+ - Ionic CLI                     : 6.16.3 
+ - Ionic Framework               : @ionic/angular 5.6.12
 
 Capacitor:
-   Capacitor CLI      : 3.1.2
-   @capacitor/android : 3.1.2
-   @capacitor/core    : 3.1.2
-   @capacitor/ios     : not installed
+  - Capacitor CLI      : 3.1.2
+  - @capacitor/android : 3.1.2
+  - @capacitor/core    : 3.1.2
+  - @capacitor/ios     : not installed
 
 Utility:
-   cordova-res : 0.15.3
+  - cordova-res : 0.15.3
   
 System:
-   NodeJS : v12.18.3 
-   npm    : 6.11.0
-   OS     : Linux 5.4
+  - NodeJS : v12.18.3 
+  - npm    : 6.11.0
+  - OS     : Linux 5.4
+   
+   
+   ## :robot: Instalação 
+
+Instalar projeto com npm
+
+```bash
+  npm install 
+  
+  ```
+
+Executar no browser
+
+```bash
+  
+  ionic serve
+  ```
+  
+  Executar no Emulador
+
+```bash
+  
+ionic build 
+npx cap sync 
+ionic cap run android -l --external
+  ```
+  
+  
+  
+  
+  
